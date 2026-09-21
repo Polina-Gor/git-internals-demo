@@ -1,0 +1,4 @@
+^test-secret\.env$
+^secret-test\.env$
+^test-secret\.txt$
+^generic\.yml$
