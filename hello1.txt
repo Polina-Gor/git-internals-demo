@@ -1,7 +1,7 @@
-Changed Hello 1 in branch1
+Changed Hello 1 
+in branch1
 Change in original
 CI test
 Change from feature branch
 Change from main branch
-Review line 1
-Review line 2
+Prepared changes for code review
