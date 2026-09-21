@@ -1,0 +1,9 @@
+detectors:
+  - name: LabTestSecret
+    keywords:
+      - LAB_SECRET
+    regex:
+      lab-secret: 'LAB_SECRET="([A-Za-z0-9]{20,})"'
+    validations:
+      lab-secret:
+        entropy: 3.0
