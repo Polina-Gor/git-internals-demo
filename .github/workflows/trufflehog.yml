@@ -20,4 +20,4 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
-          extra_args: --results=verified,unverified,unknown
+          extra_args: --config=generic.yml --results=verified,unverified,unknown
