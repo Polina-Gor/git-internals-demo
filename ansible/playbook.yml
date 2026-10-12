@@ -1,0 +1,47 @@
+
+---
+- name: Deploy the application
+  hosts: app_servers
+  become: true
+
+  vars:
+    app_dir: /opt/git-internals-demo
+    project_dir: "{{ playbook_dir }}/.."
+
+  tasks:
+    - name: Install Docker and Docker Compose
+      ansible.builtin.apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+        state: present
+        update_cache: true
+
+    - name: Ensure Docker is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Create application directory
+      ansible.builtin.file:
+        path: "{{ app_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Copy Docker Compose configuration
+      ansible.builtin.copy:
+        src: "{{ project_dir }}/compose.yaml"
+        dest: "{{ app_dir }}/compose.yaml"
+        mode: "0644"
+
+    - name: Copy application source code
+      ansible.builtin.copy:
+        src: "{{ project_dir }}/app/"
+        dest: "{{ app_dir }}/app/"
+        mode: preserve
+
+    - name: Build and start application
+      ansible.builtin.command:
+        cmd: docker compose up --build -d
+        chdir: "{{ app_dir }}"
